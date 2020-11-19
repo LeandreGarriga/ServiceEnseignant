@@ -18,7 +18,7 @@ public class ServicePrevu {
             this.volumeTP =+ tp;
         }
         
-        public void setServicePrevu(int cm, int td, int tp){
+        public void setService(int cm, int td, int tp){
             this.volumeCM=cm;
             this.volumeTP=td;
             this.volumeTD=tp;

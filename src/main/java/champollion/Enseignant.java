@@ -8,9 +8,9 @@ public class Enseignant extends Personne {
     // TODO : rajouter les autres méthodes présentes dans le diagramme UML
     private HashMap<UE, HashMap<TypeIntervention, Integer>> enseignement = new HashMap<>();
      HashMap<TypeIntervention, Integer> innerMap = new HashMap<>();
-    private ServicePrevu service= new ServicePrevu(0,0,0);
     private int heureTotalFormatTD=0;
     private Set<Intervention> Inter;
+    
     
     public Enseignant(String nom, String email) {
         super(nom, email);
@@ -71,17 +71,30 @@ public class Enseignant extends Personne {
         // TODO: Implémenter cette méthode
         //throw new UnsupportedOperationException("Pas encore implémenté");
         
-        innerMap.put(TypeIntervention.CM, volumeCM);
-        innerMap.put(TypeIntervention.TD, volumeTD);
-        innerMap.put(TypeIntervention.TP, volumeTP);
-        enseignement.put(ue,innerMap);
+        if (enseignement.get(ue)== null){
+            innerMap.put(TypeIntervention.CM, volumeCM);
+            innerMap.put(TypeIntervention.TD, volumeTD);
+            innerMap.put(TypeIntervention.TP, volumeTP);
+            
+            enseignement.put(ue,innerMap);
+        }
+        else{
+            int heureCM = enseignement.get(ue).get(TypeIntervention.CM);
+            int heureTD = enseignement.get(ue).get(TypeIntervention.TD);
+            int heureTP = enseignement.get(ue).get(TypeIntervention.TP);
         
-        //float cm_en_td= (float) (volumeCM*1.5);
-        //float tp_en_td= (float) (volumeTP*0.75);
-        //float totalue= cm_en_td + tp_en_td + volumeTD;
-        //String totalueS= ""+totalue;
-        //enseignement.put(ue, totalueS);
-        // Probleme avec cette methode: Aucun moyen de retrouver le nombre d'heure pour un seul type de cours
+            heureCM =+ volumeCM;
+            heureTD =+ volumeTD;
+            heureTP =+ volumeTP;
+            
+            enseignement.remove(ue);
+            
+            innerMap.put(TypeIntervention.CM, heureCM);
+            innerMap.put(TypeIntervention.TD, heureTD);
+            innerMap.put(TypeIntervention.TP, heureTP);
+        
+            enseignement.put(ue,innerMap);
+        }
         
     }
     
